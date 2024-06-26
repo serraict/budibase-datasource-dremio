@@ -3,9 +3,9 @@
   "metadata": {},
   "schema": {
     "docs": "https://docs.budibase.com",
-    "friendlyName": "Basic HTTP",
-    "type": "API",
-    "description": "Performs a basic HTTP calls to a URL",
+    "friendlyName": "Dremio",
+    "type": "Relational",
+    "description": "Query Dremio using SQL queries.",
     "datasource": {
       "url": {
         "type": "string",
@@ -21,7 +21,7 @@
         "type": "json"
       },
       "read": {
-        "type": "fields",
+        "type": "sql",
         "fields": {
           "queryString": {
             "display": "Query string",
