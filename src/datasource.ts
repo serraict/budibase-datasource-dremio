@@ -9,18 +9,21 @@ interface Query {
 
 class CustomIntegration implements IntegrationBase {
   private readonly url: string
-  private readonly cookie: string
+  private readonly username: string
+  private readonly password: string
 
-  constructor(config: { url: string; cookie: string }) {
+  constructor(config: { url: string; username: string; password: string }) {
     this.url = config.url
-    this.cookie = config.cookie
+    this.username = config.username
+    this.password = config.password
+
   }
 
   async request(url: string, opts: Query) {
-    if (this.cookie) {
-      const cookie = { Cookie: this.cookie }
-      opts.headers = opts.headers ? { ...opts.headers, ...cookie } : cookie
-    }
+    // if (this.cookie) {
+    //   const cookie = { Cookie: this.cookie }
+    //   opts.headers = opts.headers ? { ...opts.headers, ...cookie } : cookie
+    // }
     const response = await fetch(url, opts)
     if (response.status <= 300) {
       try {

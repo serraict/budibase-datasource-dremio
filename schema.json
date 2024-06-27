@@ -4,16 +4,22 @@
   "schema": {
     "docs": "https://docs.budibase.com",
     "friendlyName": "Dremio",
-    "type": "Relational",
+    "type": "API",
     "description": "Query Dremio using SQL queries.",
     "datasource": {
       "url": {
         "type": "string",
         "required": true
       },
-      "cookie": {
+      "username": {
         "type": "string",
-        "required": false
+        "required": true,
+        "display": "Username"
+      },
+      "password": {
+        "type": "password",
+        "required": true,
+        "display": "Password"
       }
     },
     "query": {
