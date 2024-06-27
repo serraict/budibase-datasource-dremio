@@ -10,7 +10,7 @@
       "url": {
         "type": "string",
         "required": true,
-        "default": "http://dremio:9047"
+        "default": "http://api.dremio:9047"
       },
       "username": {
         "type": "string",
@@ -23,6 +23,12 @@
         "required": true,
         "display": "Password",
         "default": "budibase1"
+      },
+      "version": {
+        "type": "string",
+        "required": false,
+        "display": "API Version",
+        "default": "3"
       }
     },
     "query": {

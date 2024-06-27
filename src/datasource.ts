@@ -1,5 +1,7 @@
 import { IntegrationBase } from "@budibase/types"
 import fetch from "node-fetch"
+//@ts-ignore
+import Dremio from 'dremio-sdk'
 
 interface Query {
   method: string
@@ -11,71 +13,43 @@ class CustomIntegration implements IntegrationBase {
   private readonly url: string
   private readonly username: string
   private readonly password: string
+  private readonly version: string
+  private readonly api: Dremio
 
-  constructor(config: { url: string; username: string; password: string }) {
+  constructor(config: { url: string; username: string; password: string, version: string }) {
     this.url = config.url
     this.username = config.username
     this.password = config.password
-
+    this.version = config.version
+    this.api = new Dremio({
+      origin: this.url,
+      version: this.version,
+      username: this.username,
+      password: this.password
+    })
   }
 
   async request(url: string, opts: Query) {
-    // if (this.cookie) {
-    //   const cookie = { Cookie: this.cookie }
-    //   opts.headers = opts.headers ? { ...opts.headers, ...cookie } : cookie
-    // }
-    const response = await fetch(url, opts)
-    if (response.status <= 300) {
-      try {
-        const contentType = response.headers.get("content-type")
-        if (contentType?.includes("json")) {
-          return await response.json()
-        } else {
-          return await response.text()
-        }
-      } catch (err) {
-        return await response.text()
-      }
-    } else {
-      const err = await response.text()
-      throw new Error(err)
-    }
+    throw new Error("Method not implemented.");
   }
 
   async create(query: { json: object }) {
-    const opts = {
-      method: "POST",
-      body: JSON.stringify(query.json),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-    return this.request(this.url, opts)
+    throw new Error("Only read operations are supported for now.");
   }
 
   async read(query: { queryString: string }) {
-    const opts = {
-      method: "GET",
-    }
-    return this.request(`${this.url}?${query.queryString}`, opts)
+    var sql = this.api.SQL();
+    var data = await sql.query(query);
+
+    return { "query": query, "some": data };
   }
 
   async update(query: { json: object }) {
-    const opts = {
-      method: "PUT",
-      body: JSON.stringify(query.json),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-    return this.request(this.url, opts)
+    throw new Error("Only read operations are supported for now.");
   }
 
   async delete(query: { id: string }) {
-    const opts = {
-      method: "DELETE",
-    }
-    return this.request(`${this.url}/${query.id}`, opts)
+    throw new Error("Only read operations are supported for now.");
   }
 }
 

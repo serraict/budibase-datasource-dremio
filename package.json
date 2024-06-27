@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@budibase/types": "^2.0.13",
-    "node-fetch": "^2"
+    "node-fetch": "^2",
+    "dremio-sdk": "^0.0.14"
   },
   "devDependencies": {
     "@budibase/backend-core": "^2.0.13",

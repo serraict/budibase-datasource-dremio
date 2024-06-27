@@ -104,7 +104,11 @@ export default {
       include: ["./src/**/*"],
       exclude: ["node_modules", "dist", "**/*.spec.ts", "**/*.spec.js"],
     }),
-    commonjs(),
+    commonjs({
+      dynamicRequireTargets: [
+        'node_modules/dremio-sdk/lib/dremio/v3/**/*.js' // Adjust the path as needed
+      ]
+    }),
     json(),
     terser(),
     copy({
