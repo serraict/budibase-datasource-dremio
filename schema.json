@@ -9,17 +9,20 @@
     "datasource": {
       "url": {
         "type": "string",
-        "required": true
+        "required": true,
+        "default": "http://dremio:9047"
       },
       "username": {
         "type": "string",
         "required": true,
-        "display": "Username"
+        "display": "Username",
+        "default": "bb"
       },
       "password": {
         "type": "password",
         "required": true,
-        "display": "Password"
+        "display": "Password",
+        "default": "budibase1"
       }
     },
     "query": {
