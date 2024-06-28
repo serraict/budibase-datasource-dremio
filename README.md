@@ -12,12 +12,29 @@ and get back to work.
 
 Retrieve up to 500 rows from any table view in your [Dremio] data lakehouse.
 
+## Development
+
+Setup your [Budibase development environment].
+Clone this repo into your plugin directory.
+Then, to rebuild the plugin while developing:
+
+```bash
+yarn watch
+```
+
+Or to run tests:
+
+```bash
+npx jest --detectOpenHandles --watchAll
+```
+
+
 ## Backlog
 
 * Write installation instruction, and test that it works.
   Installation notes in readme. Small demonstration video / gif showing that it works.
 * Ask for a code review. Any feedback is welcome.
-  * Investigate logging, how to do this in Budibase plugins? How to read them conveniently?
+  * How to do logging in Budibase plugins? How to read them conveniently?
   * How to write and run tests.
   * What are the coding guidelines for writing Budibase plugins with Typescript.
   * How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
@@ -40,3 +57,4 @@ Work in progress, see [my public learning log here](https://serra.fibery.io/Publ
 [Dremio]: https://github.com/dremio/dremio-oss
 [Budibase]: https://github.com/Budibase/budibase
 [offset- and limit parameters]: https://docs.dremio.com/24.3.x/reference/api/#limit-and-offset-query-parameters
+[Budibase development environment]: https://docs.budibase.com/docs/custom-plugin

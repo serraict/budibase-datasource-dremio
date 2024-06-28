@@ -34,15 +34,16 @@ class CustomIntegration implements IntegrationBase {
   }
   async read(query: { queryString: string }) {
     var sql = this.api.SQL();
-    // this posts the job:
-    var jobData = await sql.query(query);
+    var jobData = await sql.query(query.queryString);
     var jobId = jobData.id;
-    // wait for the job to finish:
     let jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)
     return jobResult;
   }
 
-  private async waitForJobToFinishAndGetJobResult(job_id: any) {
+  private async waitForJobToFinishAndGetJobResult(jobId: any) {
+    if (typeof jobId !== 'string' || jobId === '' || jobId === undefined) {
+      throw new Error('jobId must be a string, but is `' + typeof jobId + '` with value `' + jobId + '`.')
+    }
     var job_api = this.api.Job()
 
     // Array to store all retrieved jobs
@@ -55,7 +56,7 @@ class CustomIntegration implements IntegrationBase {
     let intervalPromise = new Promise<void>((resolve, reject) => {
 
       let intervalId = setInterval(async () => {
-        let job = await job_api.findById(job_id)
+        let job = await job_api.findById(jobId)
         lastJobStatus = job;
         if (job.jobState === "COMPLETED" || job.jobState === "CANCELED" || job.jobState === "FAILED") {
           clearInterval(intervalId)
@@ -75,7 +76,7 @@ class CustomIntegration implements IntegrationBase {
     let jobResult: any
 
     if (lastJobStatus.jobState === "COMPLETED") {
-      jobResult = await job_api.findById(job_id, { "limit": 500, "offset": 0 })
+      jobResult = await job_api.findById(jobId, { "limit": 500, "offset": 0 })
     } else {
       throw new Error(`Job failed with status: ${lastJobStatus.jobState}`)
     }

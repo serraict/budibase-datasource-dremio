@@ -1,10 +1,18 @@
-import { default as HTTP } from "../src"
+import { default as DremioIntegration } from "../src"
 import { describe, it, beforeAll, expect } from "@jest/globals"
 
+// these test assume that we have a Dremio instance running with the following configuration:
+
 describe("test the query types", () => {
+  let cfg = {
+    url: "http://127.0.0.1:9047",
+    username: "bb", password: "budibase1",
+    version: "3"
+  }
+
   let integration: any
   beforeAll(() => {
-    integration = new HTTP.integration({ url: "http://www.google.com", cookie: "" })
+    integration = new DremioIntegration.integration(cfg)
   })
 
   async function catchError(cb: any) {
@@ -28,10 +36,10 @@ describe("test the query types", () => {
 
   it("should run the read query", async () => {
     const response = await integration.read({
-      queryString: "a=1"
+      queryString: "select * from Examples.vendor_lookup"
     })
     expect(typeof response).toBe("string")
-  })
+  }, 15000)
 
   it("should run the update query", async () => {
     await catchError(() => {
