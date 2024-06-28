@@ -2,8 +2,6 @@
 
 A [Dremio] datasource for [Budibase]
 
-Find out more about [Budibase].
-
 ## Vision
 
 With this plugin, build internal tools in minutes,
@@ -19,14 +17,13 @@ Retrieve up to 500 rows from any table view in your [Dremio] data lakehouse.
 ## Backlog
 
 * Add Dremio icon.
-* Add License.
-* Publish on Github.
-* Write installation instruction.
+* Write installation instruction, and test that it works.
 * Ask for a code review on Budibase Discord
   * Investigate logging, how to do this in Budibase plugins? How to read them conveniently?
   * Write some decent tests.
   * Coding guidelines for writing Budibase plugins with Typescript.
-  * How to include vanilla js node modules in a Typescript app.
+  * How to include vanilla js node modules in a Typescript app? Did I do this `rollup.config.js` thing well?
+  * How to setup github action that automatically tests and deploys?
 * Get query string escaping right (e.g. quoted identifiers in [Dremio]).
 * Page through results for result sets exceeding 500 rows, try to align this with however BB does this.
   In Dremio, we can use [offset- and limit parameters].
