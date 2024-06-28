@@ -32,12 +32,19 @@ class CustomIntegration implements IntegrationBase {
   async create(query: { json: object }) {
     throw new Error("Only read operations are supported for now.");
   }
-  async read(query: { queryString: string }) {
-    var sql = this.api.SQL();
-    var jobData = await sql.query(query.queryString);
-    var jobId = jobData.id;
+
+
+  async read(query: { sql: string }) {
+    var jobId = await this.executeQueryAndReturnJobId(query)
     let jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)
     return jobResult;
+  }
+
+  private async executeQueryAndReturnJobId(query: { sql: string }) {
+    var sql = this.api.SQL()
+    var jobData = await sql.query(query)
+    var jobId = jobData.id
+    return jobId
   }
 
   private async waitForJobToFinishAndGetJobResult(jobId: any) {

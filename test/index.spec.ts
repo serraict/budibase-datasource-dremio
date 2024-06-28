@@ -34,12 +34,12 @@ describe("test the query types", () => {
     })
   })
 
-  it("should run the read query", async () => {
-    const response = await integration.read({
-      queryString: "select * from Examples.vendor_lookup"
-    })
-    expect(typeof response).toBe("string")
-  }, 15000)
+  // it("should run the read query", async () => {
+  //   const response = await integration.read({
+  //     queryString: "select name from Examples.vendor_lookup"
+  //   })
+  //   console.log(response)
+  // }, 15000)
 
   it("should run the update query", async () => {
     await catchError(() => {
@@ -56,4 +56,20 @@ describe("test the query types", () => {
       })
     })
   })
+
+
+  // details
+  let knownJobId = '1981844c-de96-38ba-7fbf-450c986b1e00'
+  it("should retrieve the read job result", async () => {
+    const response = await integration.waitForJobToFinishAndGetJobResult(knownJobId)
+    expect(response.rowCount).toEqual(expect.any(Number))
+    expect(response.rows).toBeInstanceOf(Array)
+    expect(response.schema).toBeInstanceOf(Array)
+  }, 15000)
+
+  it("should start a sql query", async () => {
+    let query = { sql: "select name from Examples.vendor_lookup" }
+    const response = await integration.executeQueryAndReturnJobId(query)
+    expect(response).toBeDefined()
+  }, 15000)
 })
