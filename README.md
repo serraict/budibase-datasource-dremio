@@ -25,7 +25,7 @@ yarn watch
 To run the tests, setup your Dremio instance,
 publish its web interface on <http://localhost:9047>,
 and create a user with name `bb` and password `budibase1`.
-Add the Dremio Samples data source van create the views needed for the tests.
+Add the Dremio Samples data source and create the views needed for the tests.
 
 Then to run tests:
 
