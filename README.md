@@ -2,10 +2,8 @@
 
 A [Dremio] datasource for [Budibase]
 
-## Vision
-
-With this plugin, build internal tools in minutes,
-leveraging the information from your semantic data layer in [Dremio].
+Leverage the information from your semantic data layer in [Dremio]
+to build internal tools in minutes.
 
 Quickly plug the holes in your application landscape NOW
 and get back to work.
@@ -16,18 +14,18 @@ Retrieve up to 500 rows from any table view in your [Dremio] data lakehouse.
 
 ## Backlog
 
-* Add Dremio icon.
 * Write installation instruction, and test that it works.
-* Ask for a code review on Budibase Discord
+  Installation notes in readme. Small demonstration video / gif showing that it works.
+* Ask for a code review. Any feedback is welcome.
   * Investigate logging, how to do this in Budibase plugins? How to read them conveniently?
-  * Write some decent tests.
-  * Coding guidelines for writing Budibase plugins with Typescript.
-  * How to include vanilla js node modules in a Typescript app? Did I do this `rollup.config.js` thing well?
-  * How to setup github action that automatically tests and deploys?
-* Get query string escaping right (e.g. quoted identifiers in [Dremio]).
+  * How to write and run tests.
+  * What are the coding guidelines for writing Budibase plugins with Typescript.
+  * How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
+  * How to setup github action that automatically tests and deploy?
 * Page through results for result sets exceeding 500 rows, try to align this with however BB does this.
   In Dremio, we can use [offset- and limit parameters].
-  An the job has information about the number of records.  
+  And the job has information about the number of records.
+* Get query string escaping right (e.g. quoted identifiers in [Dremio]).
 
 ## Out of scope (for now)
 
