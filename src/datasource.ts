@@ -33,7 +33,6 @@ class CustomIntegration implements IntegrationBase {
     throw new Error("Only read operations are supported for now.");
   }
 
-
   async read(query: { sql: string }) {
     var jobId = await this.executeQueryAndReturnJobId(query)
     let jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)

@@ -16,7 +16,7 @@ describe("test the query types", () => {
   })
 
   async function catchError(cb: any) {
-    let error: any
+    let error: any = null
     try {
       await cb()
     } catch (err: any) {
@@ -34,12 +34,12 @@ describe("test the query types", () => {
     })
   })
 
-  // it("should run the read query", async () => {
-  //   const response = await integration.read({
-  //     queryString: "select name from Examples.vendor_lookup"
-  //   })
-  //   console.log(response)
-  // }, 15000)
+  it("should run the read query", async () => {
+    const response = await integration.read({
+      sql: "select name from Examples.vendor_lookup"
+    })
+    expect(response.rows).toBeInstanceOf(Array)
+  }, 15000)
 
   it("should run the update query", async () => {
     await catchError(() => {
