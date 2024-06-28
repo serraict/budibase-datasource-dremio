@@ -29,54 +29,59 @@ class CustomIntegration implements IntegrationBase {
     })
   }
 
-  async request(url: string, opts: Query) {
-    throw new Error("Method not implemented.");
-  }
-
   async create(query: { json: object }) {
     throw new Error("Only read operations are supported for now.");
   }
   async read(query: { queryString: string }) {
     var sql = this.api.SQL();
-    var job_data = await sql.query(query);
-    var job_id = job_data.id;
+    // this posts the job:
+    var jobData = await sql.query(query);
+    var jobId = jobData.id;
+    // wait for the job to finish:
+    let jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)
+    return jobResult;
+  }
 
-    var job_api = this.api.Job();
+  private async waitForJobToFinishAndGetJobResult(job_id: any) {
+    var job_api = this.api.Job()
 
     // Array to store all retrieved jobs
-    let jobsArray: any[] = [];
+    let lastJobStatus: any
 
-    var polling_interval_ms = 250;
-    var timeout_ms = 30 * 1000;
+    var polling_interval_ms = 250
+    var timeout_ms = 30 * 1000
 
     // Wrap our polling logic in a new Promise
     let intervalPromise = new Promise<void>((resolve, reject) => {
 
       let intervalId = setInterval(async () => {
-        let job = await job_api.findById(job_id);
-        jobsArray.push(job);
-        if (job.jobState === "COMPLETED") {
-          clearInterval(intervalId);
-          resolve();
+        let job = await job_api.findById(job_id)
+        lastJobStatus = job;
+        if (job.jobState === "COMPLETED" || job.jobState === "CANCELED" || job.jobState === "FAILED") {
+          clearInterval(intervalId)
+          resolve()
         }
-      }, polling_interval_ms);
+      }, polling_interval_ms)
 
       setTimeout(() => {
-        clearInterval(intervalId);
-        console.log('Stopped retrieving after 30 seconds.');
-        reject(new Error('Timed out'));
-      }, timeout_ms);
-    });
+        clearInterval(intervalId)
+        reject(new Error('Job timed out'))
+      }, timeout_ms)
+    })
 
-    try {
-      await intervalPromise;
-    } catch (error) {
-      console.error(error);
+    // Do errors (like timeouts) get thrown here?
+    await intervalPromise
+
+    let jobResult: any
+
+    if (lastJobStatus.jobState === "COMPLETED") {
+      jobResult = await job_api.findById(job_id, { "limit": 500, "offset": 0 })
+    } else {
+      throw new Error(`Job failed with status: ${lastJobStatus.jobState}`)
     }
 
-    return { "query": query, "data": jobsArray };
+    return jobResult
   }
-
 
   async update(query: { json: object }) {
     throw new Error("Only read operations are supported for now.");
