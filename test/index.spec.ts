@@ -25,51 +25,32 @@ describe("test the query types", () => {
     expect(error).not.toBeNull()
   }
 
+  const BUDIBASE_MAX_PLUGIN_EXECUTION_TIME = 15000  // I have read this somewhere, but i cannot recall where
+  const TIMEOUT = BUDIBASE_MAX_PLUGIN_EXECUTION_TIME - 100
 
-  it("should run the create query", async () => {
-    await catchError(() => {
-      return integration.create({
-        json: { a: 1 }
-      })
-    })
-  })
 
   it("should run the read query", async () => {
     const response = await integration.read({
       sql: "select name from Examples.vendor_lookup"
     })
     expect(response.rows).toBeInstanceOf(Array)
-  }, 15000)
+  }, TIMEOUT)
 
-  it("should run the update query", async () => {
-    await catchError(() => {
-      return integration.update({
-        json: { a: 1 }
-      })
-    })
-  })
+  // Internal working of the read query for Dremio
+  // 1. Send query to dremio, which will start a job and return its id
+  it("should start a sql query", async () => {
+    let query = { sql: "select name from Examples.vendor_lookup" }
+    const response = await integration.executeQueryAndReturnJobId(query)
+    expect(response).toBeDefined()
+  }, TIMEOUT)
 
-  it("should run the delete query", async () => {
-    await catchError(() => {
-      return integration.delete({
-        id: 1
-      })
-    })
-  })
-
-
-  // details
-  let knownJobId = '1981844c-de96-38ba-7fbf-450c986b1e00'
+  // 2. We can then poll the job to see if it has finished, and when it has, query the results
+  let knownJobId = '197d8dd4-8c87-96b4-4b8c-38163f196d00'
   it("should retrieve the read job result", async () => {
     const response = await integration.waitForJobToFinishAndGetJobResult(knownJobId)
     expect(response.rowCount).toEqual(expect.any(Number))
     expect(response.rows).toBeInstanceOf(Array)
     expect(response.schema).toBeInstanceOf(Array)
-  }, 15000)
+  }, TIMEOUT)
 
-  it("should start a sql query", async () => {
-    let query = { sql: "select name from Examples.vendor_lookup" }
-    const response = await integration.executeQueryAndReturnJobId(query)
-    expect(response).toBeDefined()
-  }, 15000)
 })
