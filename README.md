@@ -56,13 +56,13 @@ You can find the releases
     I could not find linter configuration or sth similar. ESLint seems to be used for Budibase.
   * [x] How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
     Seems to work now.
-  * [ ] How to do versioning of releases? Or not at all?
-  * How to setup github action that automatically tests and deploy?
+  * [x] How to do versioning of releases? Or not at all?
+  * [x] How to setup github action that ~~automatically tests and~~ deploy?
 * Page through results for result sets exceeding 500 rows, try to align this with however BB does this.
   In Dremio, we can use [offset- and limit parameters].
   And the job has information about the number of records.
 * Get query string escaping right (e.g. quoted identifiers in [Dremio]).
-* First release here!
+* v1.0.0 release here!
 
 ## Out of scope (for now)
 
