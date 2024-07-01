@@ -42,6 +42,7 @@ npx jest --detectOpenHandles --watchAll
     I just use console.log and the read it in the test output.
   * [x] How to write and run tests.
   * [ ] What are the coding guidelines for writing Budibase plugins with Typescript.
+    I could not find linter configuration or sth similar. ESLint seems to be used for Budibase.
   * [ ] How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
   * [ ] How to do versioning of releases? Or not at all?
   * How to setup github action that automatically tests and deploy?
