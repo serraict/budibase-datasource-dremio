@@ -39,7 +39,7 @@ npx jest --detectOpenHandles --watchAll
   Installation notes in readme. Small demonstration video / gif showing that it works.
 * Ask for a code review. Any feedback is welcome.
   * [ ] How to do logging in Budibase plugins? How to read them conveniently?
-    I just use console.log and the read the bbapps log for now.
+    I just use console.log and the read it in the test output.
   * [x] How to write and run tests.
   * [ ] What are the coding guidelines for writing Budibase plugins with Typescript.
   * [ ] How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?

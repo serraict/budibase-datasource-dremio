@@ -31,7 +31,9 @@ class CustomIntegration implements IntegrationBase {
 
   async read(query: { sql: string }) {
     var jobId = await this.executeQueryAndReturnJobId(query)
+    console.log('Dremio SQL Job created with id:', jobId)
     let jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)
+    console.log('JobId:', jobId, 'Dremio Job result:', jobResult)
     return jobResult;
   }
 
