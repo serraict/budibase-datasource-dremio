@@ -12,6 +12,13 @@ and get back to work.
 
 Retrieve up to 500 rows from any table view in your [Dremio] data lakehouse.
 
+## Installation
+
+The plugin is distributed through [its github repository].
+To install the latest release, follow the _Add plugin_ instructions [here](https://docs.budibase.com/docs/custom-plugin),
+choose a _Github_ source and use the url `https://github.com/serraict/budibase-datasource-dremio`.
+You do not need to specify a token.
+
 ## Development
 
 Setup your [Budibase development environment].
@@ -45,19 +52,6 @@ You can find the releases
 
 ## Backlog
 
-* Write installation instruction, and test that it works.
-  Installation notes in readme. Small demonstration video / gif showing that it works.
-  Basically: just add the Github url as described [here](https://docs.budibase.com/docs/custom-plugin).
-* Ask for a code review. Any feedback is welcome.
-  * [x] How to do logging in Budibase plugins? How to read them conveniently?
-    I just use console.log and the read it in the test output.
-  * [x] How to write and run tests.
-  * [x] What are the coding guidelines for writing Budibase plugins with Typescript.
-    I could not find linter configuration or sth similar. ESLint seems to be used for Budibase.
-  * [x] How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
-    Seems to work now.
-  * [x] How to do versioning of releases? Or not at all?
-  * [x] How to setup github action that ~~automatically tests and~~ deploy?
 * Page through results for result sets exceeding 500 rows, try to align this with however BB does this.
   In Dremio, we can use [offset- and limit parameters].
   And the job has information about the number of records.
@@ -78,3 +72,4 @@ Work in progress, see [my public learning log here](https://serra.fibery.io/Publ
 [Budibase]: https://github.com/Budibase/budibase
 [offset- and limit parameters]: https://docs.dremio.com/24.3.x/reference/api/#limit-and-offset-query-parameters
 [Budibase development environment]: https://docs.budibase.com/docs/custom-plugin
+[github repository]: https://github.com/serraict/budibase-datasource-dremio
