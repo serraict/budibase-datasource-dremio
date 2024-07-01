@@ -1,6 +1,6 @@
 {
   "name": "budibase-datasource-dremio",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "A Dremio datasource for Budibase",
   "main": "src/index.ts",
   "license": "MIT",

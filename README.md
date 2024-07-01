@@ -33,17 +33,29 @@ Then to run tests:
 npx jest --detectOpenHandles --watchAll
 ```
 
+## Release
+
+Every push of the main branch to Github will result in a release. So to release:
+
+1. Bump the version in [`package.json`](package.json).
+1. Push to Github.
+
+You can find the releases
+[here on Github](https://github.com/serraict/budibase-datasource-dremio/releases/).
+
 ## Backlog
 
 * Write installation instruction, and test that it works.
   Installation notes in readme. Small demonstration video / gif showing that it works.
+  Basically: just add the Github url as described [here](https://docs.budibase.com/docs/custom-plugin).
 * Ask for a code review. Any feedback is welcome.
-  * [ ] How to do logging in Budibase plugins? How to read them conveniently?
+  * [x] How to do logging in Budibase plugins? How to read them conveniently?
     I just use console.log and the read it in the test output.
   * [x] How to write and run tests.
-  * [ ] What are the coding guidelines for writing Budibase plugins with Typescript.
+  * [x] What are the coding guidelines for writing Budibase plugins with Typescript.
     I could not find linter configuration or sth similar. ESLint seems to be used for Budibase.
-  * [ ] How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
+  * [x] How to include vanilla js node modules in a Typescript app? Is my `rollup.config.js` configured correctly?
+    Seems to work now.
   * [ ] How to do versioning of releases? Or not at all?
   * How to setup github action that automatically tests and deploy?
 * Page through results for result sets exceeding 500 rows, try to align this with however BB does this.
