@@ -4,7 +4,7 @@ import { describe, it, beforeAll, expect } from "@jest/globals"
 // these test assume that we have a Dremio instance running with the following configuration:
 
 describe("test the query types", () => {
-  let cfg = {
+  const cfg = {
     url: "http://127.0.0.1:9047",
     username: "bb", password: "budibase1",
     version: "3"
@@ -39,13 +39,13 @@ describe("test the query types", () => {
   // Internal working of the read query for Dremio
   // 1. Send query to dremio, which will start a job and return its id
   it("should start a sql query", async () => {
-    let query = { sql: "select name from Examples.vendor_lookup" }
+    const query = { sql: "select name from Examples.vendor_lookup" }
     const response = await integration.executeQueryAndReturnJobId(query)
     expect(response).toBeDefined()
   }, TIMEOUT)
 
   // 2. We can then poll the job to see if it has finished, and when it has, query the results
-  let knownJobId = '197d8dd4-8c87-96b4-4b8c-38163f196d00'
+  const knownJobId = '197d8dd4-8c87-96b4-4b8c-38163f196d00'
   it("should retrieve the read job result", async () => {
     const response = await integration.waitForJobToFinishAndGetJobResult(knownJobId)
     expect(response.rowCount).toEqual(expect.any(Number))

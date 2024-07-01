@@ -1,13 +1,6 @@
 import { IntegrationBase } from "@budibase/types"
-import fetch from "node-fetch"
 //@ts-ignore
 import Dremio from 'dremio-sdk'
-
-interface Query {
-  method: string
-  body?: string
-  headers?: { [key: string]: string }
-}
 
 class CustomIntegration implements IntegrationBase {
   private readonly url: string
@@ -30,37 +23,34 @@ class CustomIntegration implements IntegrationBase {
   }
 
   async read(query: { sql: string }) {
-    var jobId = await this.executeQueryAndReturnJobId(query)
+    const jobId = await this.executeQueryAndReturnJobId(query)
     console.log('Dremio SQL Job created with id:', jobId)
-    let jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)
+    const jobResult: any = await this.waitForJobToFinishAndGetJobResult(jobId)
     console.log('JobId:', jobId, 'Dremio Job result:', jobResult)
     return jobResult;
   }
 
   private async executeQueryAndReturnJobId(query: { sql: string }) {
-    var sql = this.api.SQL()
-    var jobData = await sql.query(query)
-    var jobId = jobData.id
+    const sql = this.api.SQL()
+    const jobData = await sql.query(query)
+    const jobId = jobData.id
     return jobId
   }
 
-  private async waitForJobToFinishAndGetJobResult(jobId: any) {
-    if (typeof jobId !== 'string' || jobId === '' || jobId === undefined) {
-      throw new Error('jobId must be a string, but is `' + typeof jobId + '` with value `' + jobId + '`.')
-    }
-    var job_api = this.api.Job()
+  private async waitForJobToFinishAndGetJobResult(jobId: string) {
+    const job_api = this.api.Job()
 
     // Array to store all retrieved jobs
     let lastJobStatus: any
 
-    var polling_interval_ms = 250
-    var timeout_ms = 30 * 1000
+    const polling_interval_ms = 250
+    const timeout_ms = 30 * 1000
 
     // Wrap our polling logic in a new Promise
-    let intervalPromise = new Promise<void>((resolve, reject) => {
+    const intervalPromise = new Promise<void>((resolve, reject) => {
 
-      let intervalId = setInterval(async () => {
-        let job = await job_api.findById(jobId)
+      const intervalId = setInterval(async () => {
+        const job = await job_api.findById(jobId)
         lastJobStatus = job;
         if (job.jobState === "COMPLETED" || job.jobState === "CANCELED" || job.jobState === "FAILED") {
           clearInterval(intervalId)
