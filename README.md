@@ -14,7 +14,7 @@ Retrieve up to 500 rows from any table view in your [Dremio] data lakehouse.
 
 ## Installation
 
-The plugin is distributed through [its github repository].
+The plugin is distributed through its [github repository].
 To install the latest release, follow the _Add plugin_ instructions [here](https://docs.budibase.com/docs/custom-plugin),
 choose a _Github_ source and use the url `https://github.com/serraict/budibase-datasource-dremio`.
 You do not need to specify a token.
